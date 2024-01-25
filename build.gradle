@@ -1,3 +1,11 @@
+
+buildscript {
+    dependencies {
+        classpath "io.spring.gradle:dependency-management-plugin:0.5.1.RELEASE"
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:1.2.3.RELEASE"
+    }
+}
+
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.2'
@@ -12,6 +20,15 @@ java {
 }
 
 allprojects {
+
+//    task copyResources(type: Copy) {
+//        from "${projectDir}/src/main/resources"
+//        into "${buildDir}/resources/main"
+//    }
+//    compileJava.dependsOn copyResources
+    compileJava.options.encoding = "UTF-8"
+    compileTestJava.options.encoding = "UTF-8"
+
     apply plugin: 'java'
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
@@ -30,11 +47,13 @@ allprojects {
 subprojects {
 
     // 子项目引用依赖
-    dependencies {
-        // https://mvnrepository.com/artifact/cn.hutool/hutool-all
-        implementation group: 'cn.hutool', name: 'hutool-all', version: '5.8.25'
-        implementation 'org.springframework.boot:spring-boot-starter-web'
-        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    dependencyManagement {
+        dependencies {
+            dependency group: 'cn.hutool', name: 'hutool-all', version: '5.8.25'
+        }
+
+
     }
+
 
 }
