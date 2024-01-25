@@ -1,0 +1,4 @@
+rootProject.name = 'gradle'
+include 'gradle-spring1'
+include 'gradle-spring2'
+
